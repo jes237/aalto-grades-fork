@@ -5,7 +5,7 @@ name: Check Translations
 on:
   push:
     paths:
-      - 'client/public/locales/'
+      - 'client/public/locales/**'
 
 jobs:
   check-translation-keys:
