@@ -1,11 +1,11 @@
 ---
 
-name: Check Translations
+name: Check Translation Keys
 
 on:
   push:
     paths:
-      - 'client/public/locales/**'
+      - 'client/public/locales/**' # Run only when updates to the locales i.e., translations
 
 jobs:
   check-translation-keys:
