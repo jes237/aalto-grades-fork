@@ -4,16 +4,33 @@ import os
 """
 This script checks that all translation.json files in the 'locales' directory
 (en, fi, sv) have the same set of keys to ensure consistency across languages.
+
+English file is set as reference where all other translations are compared to.
 """
 
+def get_keys_from_dict(data, parent_key=""):
+    """Recursively extract all nested keys from a dictionary."""
+    keys = set()
+    for key, value in data.items():
+        full_key = f"{parent_key}.{key}" if parent_key else key
+        keys.add(full_key)
+        if isinstance(value, dict):
+            keys.update(get_keys_from_dict(value, full_key))
+    return keys
+
 def get_keys_from_file(filename):
-    """Load JSON file and return a set of its keys."""
+    """Load JSON file and return a set of its keys, including nested ones."""
     with open(filename, 'r', encoding='utf-8') as f:
         data = json.load(f)
-    return set(data.keys())
+    return get_keys_from_dict(data)
 
 def main():
-    path = 'client/public/locales'  # Base directory containing language folders
+    # Get the absolute path of the project's root directory
+    ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+
+    # Correct path to locales
+    path = os.path.join(ROOT_DIR, "client/public/locales")
+
     languages = ['en', 'fi', 'sv']
     files = [os.path.join(path, lang, 'translation.json') for lang in languages]
 
