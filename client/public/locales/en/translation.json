@@ -9,7 +9,7 @@
         "requirements": "Aalto password requirements",
         "reset": "Reset password",
         "reset-done": "Password reset successfully",
-        "oldiiii": "New password cannot be the same as the old password"
+        "oldiii": "New password cannot be the same as the old password"
       },
       "change-password": "Change password",
       "reset-mfa-secret": "Reset MFA secret",

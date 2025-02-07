@@ -29,10 +29,12 @@ def main():
     for file in files:
         all_keys.append((file, get_keys_from_file(file)))
 
-    # Use the first file as the reference
-    base_file, base_keys = all_keys[0]
+    # Explicitly set English as the reference
+    base_file, base_keys = next((file, keys) for file, keys in all_keys if 'en/translation.json' in file)
 
-    for file, keys in all_keys[1:]:
+    for file, keys in all_keys:
+        if file == base_file:
+            continue
         if keys != base_keys:
             diff = keys.symmetric_difference(base_keys)
             print(f"Keys mismatch between {base_file} and {file}. Difference: {diff}")
